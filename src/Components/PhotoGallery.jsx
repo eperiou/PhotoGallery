@@ -1,49 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const PhotoGallery = ({ photos: {
-  name,
-  url,
-} }) => (
+const PhotoGallery = ({ photos }) => (
   <article>
-    <h2>Photos!</h2>
-    <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
-      <div className="carousel-inner" role="listbox">
-        {/* First Carousel item needs to be 'active' */}
-        <div className="carousel-item active">
-          <img className="d-block img-fluid" src="..." alt="First slide" />
-        </div>
-        <div className="carousel-item">
-          <img className="d-block img-fluid" src="..." alt="Second slide" />
-        </div>
+    <div id="myCarousel" className="carousel slide" data-ride="carousel">
+
+      {/* Indicators, the first needs to be 'active'*/}
+
+      <ol className="carousel-indicators">
+        {photos.map((photo, ind) => (
+          ind === 0 ? (
+            <li key={photo.name} data-target="#myCarousel" data-slide-to={ind} className="active" />
+          ) : (
+            <li key={photo.name} data-target="#myCarousel" data-slide-to={ind} />
+          )
+        ))}
+      </ol>
+
+      {/*
+        * The carousel's first item has to be  'active'
+        */}
+      <div className="carousel-inner">
+        {photos.map((photo, ind) => (
+          ind === 0 ? (
+            <div className="item active">
+              <img src={photo.url} alt={photo.name} key={photo.name} />
+            </div>
+          ) : (
+            <div className="item">
+              <img src={photo.url} alt={photo.name} key={photo.name} />
+            </div>
+          )
+        ))}
       </div>
-      <a
-        className="carousel-control-prev"
-        href="#carouselExampleControls"
-        role="button"
-        data-slide="prev"
-      >
-        <span className="carousel-control-prev-icon" aria-hidden="true" />
+      {/* <!-- Left and right controls --> */}
+      <a className="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span className="glyphicon glyphicon-chevron-left" />
         <span className="sr-only">Previous</span>
       </a>
-      <a
-        className="carousel-control-next"
-        href="#carouselExampleControls"
-        role="button"
-        data-slide="next"
-      >
-        <span className="carousel-control-next-icon" aria-hidden="true" />
+      <a className="right carousel-control" href="#myCarousel" data-slide="next">
+        <span className="glyphicon glyphicon-chevron-right" />
         <span className="sr-only">Next</span>
       </a>
     </div>
   </article>
 );
 
+  /*
+  * Typing for incoming Data
+  */
+
 PhotoGallery.propTypes = {
-  photos: PropTypes.shape({
-    name: PropTypes.string.isRequired,
+  photos: PropTypes.arrayOf(PropTypes.shape({
     url: PropTypes.string.isRequired,
-  }).isRequired,
+    name: PropTypes.string.isRequired,
+  })),
+};
+PhotoGallery.defaultProps = {
+  photos: [],
 };
 /*
   Sample of incoming photo objects
