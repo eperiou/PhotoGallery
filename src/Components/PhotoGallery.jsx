@@ -5,7 +5,7 @@ const PhotoGallery = ({ photos }) => (
   <article>
     <div id="myCarousel" className="carousel slide" data-ride="carousel">
 
-      {/* Indicators, the first needs to be 'active'*/}
+      {/* Indicators, the first needs to be 'active' */}
 
       <ol className="carousel-indicators">
         {photos.map((photo, ind) => (

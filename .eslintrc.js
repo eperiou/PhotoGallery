@@ -5,7 +5,7 @@ module.exports = {
         "jsx-a11y",
         "import"
     ],
-    "globals": {
-      "fetch": true,
+    "rules": {
+      "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     }
 };
